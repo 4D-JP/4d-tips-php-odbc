@@ -2,7 +2,7 @@
 PHPとODBCを使用して4Dにアクセスする例題です。
 
 概要
-==
+--
 [PHP](https://ja.wikipedia.org/wiki/PHP:_Hypertext_Preprocessor)は，Mac, Windows, Linuxで実行できるプログラミング言語、およびその言語処理系です。PHPを使用すれば，4Dのデータベースに外部からアクセスするプログラムを記述することができます。
 
 この例題では，PHPから4Dにアクセスする方法として[ODBC](https://ja.wikipedia.org/wiki/Open_Database_Connectivity)を使用します。そのためには，下記の条件が満たされていなければなりません。

@@ -165,3 +165,70 @@ odbc.defaultlrl => return up to 4096 bytes => return up to 4096 bytes
 odbc.max_links => Unlimited => Unlimited
 odbc.max_persistent => Unlimited => Unlimited
 ```
+
+###ODBCドライバーのインストール
+
+Mac版の4D ODBC Driverは，2種類が提供されています。
+
+* macOS 32-bit
+* macOS 64-bit
+
+ODBCドライバーは，クライアント（たとえばPHPを実行するシステム）側のプラットフォームに合ったものをクライアント側にインストールします。PHPは63ビットアプリケーションですが，32ビット版の4DからODBCの接続テストが実行できるように，両方のドライバーをインストールすることにします。
+
+ドライバーをダウンロードします。
+
+http://www.4d.com/jp/downloads/products.html
+
+Rバージョンとそうでないバージョンでは，ODBCドライバーが違います。ここでは，両方のドライバーをインストールすることにします。
+
+ファイルを展開し，所定のフォルダーに「4D ODBC x32.bundle」または「4D ODBC x64.bundle」を移動します。Rバージョンとそうでないバージョンは，ファイル名が同じなので，``/Library/ODBC``にサブディレクトリを作成してそこに移動します。
+
+``/Library/ODBC/15/4D ODBC x32.bundle``
+
+``/Library/ODBC/15/4D ODBC x64.bundle``
+
+``/Library/ODBC/15R/4D ODBC x32.bundle``
+
+``/Library/ODBC/15R/4D ODBC x64.bundle``
+
+次に``/Library/ODBC/odbc.ini``ファイルを編集しますが，[v15](http://doc.4d.com/4Dv15/4D/15.2/Installing-an-ODBC-driver-on-OS-X.300-2885364.ja.html)と[v15R](http://doc.4d.com/4Dv15R5/4D/15-R5/Installing-an-ODBC-driver-on-OS-X.300-3014275.ja.html)では記述する内容が違います。
+
+両方を併記すると下記のようになります。
+
+```
+[ODBC Data Sources]
+4D_V15_32   = 4D v15 ODBC Driver 32-bit
+4D_V15_64   = 4D v15 ODBC Driver 64-bit
+4D_v15RX_32 = 4D v15 Rx ODBC Driver 32-bit
+4D_v15RX_64 = 4D v15 Rx ODBC Driver 64-bit
+
+[4D_V15_32]
+Driver      = /Library/ODBC/15/4D ODBC x32.bundle/Contents/MacOS/4D ODBC x32
+Description = 4D v15 32 bits
+
+[4D_V15_64]
+Driver      = /Library/ODBC/15/4D ODBC x64.bundle/Contents/MacOS/4D ODBC x64
+Description = 4D v15 64 bits
+
+[4D_v15RX_32]
+Driver      = /Library/ODBC/15R/4D ODBC x32.bundle/Contents/MacOS/4D ODBC x32
+Description = 4D v15 Rx 32 bits
+
+[4D_v15RX_64]
+Driver      = /Library/ODBC/15R/4D ODBC x64.bundle/Contents/MacOS/4D ODBC x64
+Description = 4D v15 Rx 64 bits
+```
+
+ドライバーをインストールしたら，ODBC管理ツールを起動してデータベースの名前（DSN）を登録します。
+
+前の手順ですでにiODBCのODBCアドミニストレーターがインストールされているはずです。
+
+あるいは，別のODBCアドミニストレーターを使用することもできます。
+
+* サードパーティODBCマネージャー
+
+http://www.odbcmanager.net/faq.php
+
+アプリケーション > ユーティリティ にインストールされます。
+
+iODBCのODBCアドミニストレーターは，32ビット版と64ビット版が用意されています。どちらのアドミニストレーターでも32ビット版と64ビット版のDSNを登録することができますが，接続テストは，それぞれのiODBC管理ツールで実行する必要があります。

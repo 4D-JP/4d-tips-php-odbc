@@ -353,6 +353,32 @@ End if
 
 接続に成功したら，今度はSQL命令のテストを実行します。
 
+まずテスト用のテーブルを追加します。
+
+![table_1](https://cloud.githubusercontent.com/assets/10509075/20778460/2342860e-b7b1-11e6-8442-016bd8c71220.png)
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE base SYSTEM "http://www.4d.com/dtd/2007/base.dtd" >
+<base>
+	<table name="Table_1" uuid="E79A7B1B625746ACB8681E286A6E4156" id="1">
+		<field name="ID" uuid="56341A917A064D9F961BA171E68AF660" type="4" unique="true" autosequence="true" not_null="true" id="1">
+			<field_extra/>
+		</field>
+		<field name="Field_2" uuid="E955B64244D14E62A4180D342D07F095" type="10" limiting_length="255" never_null="true" id="2">
+			<field_extra/>
+		</field>
+		<primary_key field_name="ID" field_uuid="56341A917A064D9F961BA171E68AF660"/>
+		<table_extra>
+			<editor_table_info displayable_fields_count="2">
+				<color red="168" green="206" blue="226" alpha="255"/>
+				<coordinates left="121.10546875" top="13.1171875" width="95" height="83.33203125"/>
+			</editor_table_info>
+		</table_extra>
+	</table>
+</base>
+```
+
 ```
 SQL LOGIN("ODBC:4D_V15_32";"Designer";"";*) //*: apply to BeginSQL~End SQL
 

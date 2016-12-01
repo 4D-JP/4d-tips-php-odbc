@@ -451,7 +451,7 @@ PHPコマンドにファイルパスを指定してコードを実行します�
 php -f /Users/miyako/Desktop/example.php 
 ```
 
-PHPとODBCで4Dのアクセスすることができました。
+PHPとODBCで4Dにアクセスすることができました。
 
 Windows
 ---

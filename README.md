@@ -85,7 +85,7 @@ http://php.net/downloads.php
 
 ダウンロードしたファイルを展開し，ターミナルを起動してカレントディレクトリを変更します。
 ```
-cd /Users/miyako/Downloads/php-5.5.38 
+cd ~/Downloads/php-5.5.38 
 ```
 ODBC拡張のディレクトリに移動します。
 ```

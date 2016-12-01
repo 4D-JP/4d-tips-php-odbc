@@ -387,7 +387,7 @@ If (OK=1)
 	ARRAY TEXT($Field_2;0)
 	ARRAY TEXT($values;3)
 	
-	$values{1}:="あいうえお"  //string literal gets corrupted in ODBC
+	$values{1}:="あいうえお"
 	$values{2}:="かきくけこ"
 	$values{3}:="さしすせそ"
 	
@@ -529,8 +529,6 @@ End if
 
 今度はODBCで同じことを実行します。
 
-**注記**: WindowsではODBC接続にリテラル文字列で``INSERT``を実行しても文字化けが発生しません。むしろ，配列の参照を使用するとドライバーからエラーが返されます。さらに，Macとは違い，DSNの大文字と小文字は区別されるようです。たとえば，``ODBC:4D_v15_64``とするべきところを``ODBC:4D_V15_64``と記述した場合，Macでは接続に成功しますが，Windowsではエラーが返されます。
-
 ```
 SQL LOGIN("ODBC:4D_v15_64";"Designer";"";*) //*: apply to BeginSQL~End SQL
 
@@ -554,6 +552,26 @@ If (OK=1)
 Else 
 	ALERT("KO")
 End if  
+```
+
+**注記**: WindowsではODBC接続にリテラル文字列で``INSERT``を実行しても文字化けが発生しません。むしろ，配列の参照を使用するとドライバーからエラーが返されます。さらに，Macとは違い，DSNの大文字と小文字は区別されるようです。たとえば，``ODBC:4D_v15_64``とするべきところを``ODBC:4D_V15_64``と記述した場合，Macでは接続に成功しますが，Windowsではエラーが返されます。
+
+* パススルーでは有効でもODBCでは失敗するコード例
+
+```sql
+ARRAY TEXT($values;3)
+
+$values{1}:="あいうえお"
+$values{2}:="かきくけこ"
+$values{3}:="さしすせそ"
+
+Begin SQL
+
+        INSERT 
+        INTO Table_1 (Field_2) 
+        VALUES (:$values);
+
+ End SQL
 ```
 
 ODBC経由でもSQL命令が発行できることが確認できました。

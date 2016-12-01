@@ -1,16 +1,16 @@
 # 4d-tips-php-odbc
-PHPとODBCを使用して4Dにアクセスする例題です。
+PHPとODBCを使用して4Dにアクセスするチュートリアルです。
 
 概要
 --
 [PHP](https://ja.wikipedia.org/wiki/PHP:_Hypertext_Preprocessor)は，Mac, Windows, Linuxで実行できるプログラミング言語、およびその言語処理系です。PHPを使用すれば，4Dのデータベースに外部からアクセスするプログラムを記述することができます。
 
-この例題では，PHPから4Dにアクセスする方法として[ODBC](https://ja.wikipedia.org/wiki/Open_Database_Connectivity)を使用します。そのためには，下記の条件が満たされていなければなりません。
+このチュートリアルでは，PHPから4Dにアクセスする方法として[ODBC](https://ja.wikipedia.org/wiki/Open_Database_Connectivity)を使用します。そのためには，下記の条件が満たされていなければなりません。
 
 1. PHPにODBC拡張モジュールが含まれている
 2. 4D ODBC Driverがセットアップされている
 
-この例題では，MacおよびWindowsのPHPから4DにODBCでアクセスする例を考慮します。
+このチュートリアルでは，MacおよびWindowsのPHPから4DにODBCでアクセスする例を考慮します。
 
 **注記**：Linux版の4D ODBC Driverは提供されていません。Linux版のPHPから4Dにアクセスしたい場合，PDO_4DまたはSQL以外の手段（HTTP, SOAP, REST）を検討しなければなりません。
 
@@ -40,7 +40,7 @@ brew options php56
 
 https://ryanwinchester.ca/posts/install-php-5-6-in-osx-10-with-homebrew
 
-この例題では``iODBC``のODBC拡張をMacにプリインストールされているPHPで使用する例を考慮します。
+このチュートリアルでは``iODBC``のODBC拡張をMacにプリインストールされているPHPで使用する例を考慮します。
 
 ###iODBCのダウンロード
 

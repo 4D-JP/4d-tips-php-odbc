@@ -173,7 +173,7 @@ Mac版の4D ODBC Driverは，2種類が提供されています。
 * macOS 32-bit
 * macOS 64-bit
 
-ODBCドライバーは，クライアント（たとえばPHPを実行するシステム）側のプラットフォームに合ったものをクライアント側にインストールします。PHPは63ビットアプリケーションですが，32ビット版の4DからODBCの接続テストが実行できるように，両方のドライバーをインストールすることにします。
+ODBCドライバーは，クライアント（たとえばPHPを実行するシステム）側のプラットフォームに合ったものをクライアント側にインストールします。Mac版のPHPは64ビットアプリケーションですが，32ビット版の4DからODBCの接続テストが実行できるように，両方のドライバーをインストールすることにします。
 
 ドライバーをダウンロードします。
 
@@ -476,9 +476,15 @@ Cドライプ直下にPHPフォルダーを移動する，というチュート�
 ```
 C:\Program Files (x86)\php\php-5.6.28
 ```
-参考（環境変``PATH``の設定）
 
-http://hiiragi.hateblo.jp/entry/2015/11/24/134321
+![system-property-win](https://cloud.githubusercontent.com/assets/10509075/20779031/3986a586-b7b5-11e6-9654-fd47185c7279.png)
+
+![environment-variable-win](https://cloud.githubusercontent.com/assets/10509075/20779044/49c8147a-b7b5-11e6-80bb-597edc22c7dd.png)
+
+**注記**: 設定ダイアログで「環境変数」を検索すると画面にアクセスすることができます。
+
+![search-win](https://cloud.githubusercontent.com/assets/10509075/20779117/b39c34a8-b7b5-11e6-8cf6-05791c5a150a.png)
+
 
 コマンドプロンプトを起動してPHPの動作を確認します。
 

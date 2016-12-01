@@ -123,7 +123,7 @@ sudo make EXTENSION_DIR=/usr/local/lib/php/extensions install
 ``php.ini``ファイルの場所を確認します。
 
 ```
-php -r 'phpinfo();' | grep 'Configuration File (php.ini)'
+php -r 'phpinfo(1);' | grep 'Configuration File (php.ini)'
 ```
 
 ``/etc``であることがわかります。
@@ -338,7 +338,7 @@ SQLサーバーの動作と認証をチェックすることができました�
 
 ここではv15の32ビット版データソース名を指定しています。
 ```
-SQL LOGIN("ODBC:4D_V15_32";"Designer";"")
+SQL LOGIN("ODBC:4D_v15_32";"Designer";"")
 
 If (OK=1)
 	ALERT("OK")
@@ -380,7 +380,7 @@ End if
 ```
 
 ```
-SQL LOGIN("ODBC:4D_V15_32";"Designer";"";*) //*: apply to BeginSQL~End SQL
+SQL LOGIN("ODBC:4D_v15_32";"Designer";"";*) //*: apply to BeginSQL~End SQL
 
 If (OK=1)
 
@@ -494,4 +494,67 @@ php -r phpinfo(); | more
 ```
 
 PHPにODBC拡張が含まれていることが確認できました。
+
+###SQLサーバーの動作を確認する
+
+前述したMacと同じようにパススルー接続でSQLサーバーの動作を確認します。
+
+```
+SQL LOGIN("IP:127.0.0.1";"Designer";"";*) //*: apply to BeginSQL~End SQL
+
+If (OK=1)
+
+	ARRAY TEXT($Field_2;0)
+	
+	Begin SQL
+		
+		INSERT 
+		INTO Table_1 (Field_2) 
+		VALUES ('あいうえお'), ('かきくけこ'), ('さしすせそ');
+		
+		SELECT Field_2 
+		FROM Table_1
+		INTO :$Field_2;
+		
+	End SQL
+	
+	SQL LOGOUT
+Else 
+	ALERT("KO")
+End if  
+```
+パススルーでは，接続・``SELECT``・``INSERT``ともに問題がないことが確認できました。
+
+###ODBCドライバーの動作を確認する
+
+今度はODBCで同じことを実行します。
+
+**注記**: Mac版とは違い，WindowsではODBC接続でもリテラル文字列で``INSERT``を実行することができます。一方，Macとは違い，DSNの大文字と小文字は区別されるようです。たとえば，``ODBC:4D_v15_64``とするべきところを``ODBC:4D_V15_64``と記述した場合，Macでは接続に成功しますが，Windowsではエラーが返されます。
+
+```
+SQL LOGIN("ODBC:4D_v15_64";"Designer";"";*) //*: apply to BeginSQL~End SQL
+
+If (OK=1)
+
+	ARRAY TEXT($Field_2;0)
+	
+	Begin SQL
+		
+		INSERT 
+		INTO Table_1 (Field_2) 
+		VALUES ('あいうえお'), ('かきくけこ'), ('さしすせそ');
+		
+		SELECT Field_2 
+		FROM Table_1
+		INTO :$Field_2;
+		
+	End SQL
+	
+	SQL LOGOUT
+Else 
+	ALERT("KO")
+End if  
+```
+
+ODBC経由でもSQL命令が発行できることが確認できました。
 

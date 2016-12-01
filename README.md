@@ -232,3 +232,5 @@ http://www.odbcmanager.net/faq.php
 アプリケーション > ユーティリティ にインストールされます。
 
 iODBCのODBCアドミニストレーターは，32ビット版と64ビット版が用意されています。どちらのアドミニストレーターでも32ビット版と64ビット版のDSNを登録することができますが，接続テストは，それぞれのiODBC管理ツールで実行する必要があります。
+
+![odbc-admin-mac](https://cloud.githubusercontent.com/assets/10509075/20777112/37c54e44-b7a8-11e6-9ac4-28b973ce8e95.png)

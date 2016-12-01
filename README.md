@@ -647,3 +647,42 @@ php -f /Users/miyako/Desktop/example.php
 返された文字列が化けています。やはり，日本語でなければ問題ありません。明らかにUTF-8とコードページ932の混乱が生じているようです。
 
 ![select-error](https://cloud.githubusercontent.com/assets/10509075/20781132/cd69e606-b7c3-11e6-890b-1b853534ab2e.png)
+
+まず，``CMD.EXE``のコードページを``932``から``65001 (UTF-8)``に変更してみます。
+
+```sh
+chcp 65001
+```
+
+すると，今度はPHPが渡されたファイルパスの日本語を解釈できずにエラーが返されます。
+
+**注記**: Windows版のPHPには，ロケールを``utf-8``に設定することができないようです。``ja_JP.UTF-8``を指定しても``Japanese_Japan.932``のままで変わりません。なお，ロケールは``Japanese_Japan.932``ですが，デフォルト文字セットは``utf-8``です。
+
+```php
+setlocale(LC_ALL, "ja_JP.UTF-8");
+echo "LC_LANG is ".setlocale(LC_ALL, 0)."\n";
+echo "default_charset is ".ini_get("default_charset")."\n";
+```
+
+http://blog-tmtsts.rhcloud.com/1014
+
+一応，問題の原因を追求するために日本語が含まれないパスで再チャレンジします。
+
+![system](https://cloud.githubusercontent.com/assets/10509075/20781330/5dc0e640-b7c5-11e6-802f-08fa90df4c8b.png)
+
+なぜか文字列の前半だけが化けます。末尾の``ds``も気になるのですが・・・
+
+原因は``CMD.EXE``ではなく，PHP側のようなので，``CMD.EXE``のコードページを``932``に戻します。
+
+```sh
+chcp 932
+```
+
+なんだか釈然としませんが，ODBCドライバーの文字コードを``system``に切り替えます。
+
+![system](https://cloud.githubusercontent.com/assets/10509075/20781330/5dc0e640-b7c5-11e6-802f-08fa90df4c8b.png)
+
+予想どおり今度はうまくゆきました。
+
+![good-but](https://cloud.githubusercontent.com/assets/10509075/20781354/846ea62e-b7c5-11e6-8db9-ce5847cd0ffe.png)
+

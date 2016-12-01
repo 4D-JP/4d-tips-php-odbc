@@ -383,7 +383,7 @@ Else
 End if  
 ```
 
-**注記**: [SQL LOGIN](http://doc.4d.com/4Dv15R5/4D/15-R5/SQL-LOGIN.301-2936651.ja.html)で接続した外部データソースに対して``Begin SQL``~``End SQL``で命令を発行するためには，オプションの引数``*``を指定します。パススルーであれば，``Begin SQL``~``End SQL``ブロック内で文字列リテラルを指定することもできますが，ODBCドライバー経由では文字化けが発生するようです。
+**注記**: [SQL LOGIN](http://doc.4d.com/4Dv15R5/4D/15-R5/SQL-LOGIN.301-2936651.ja.html)で接続した外部データソースに対して``Begin SQL``~``End SQL``で命令を発行するためには，オプションの引数``*``を指定します。パススルーであれば，``Begin SQL``~``End SQL``ブロック内で文字列リテラルを指定することもできますが，ODBCドライバー経由では文字化けが発生するようです。またODBC経由ではSQL内にコメントが記述できないようです。
 
 * パススルーでは有効でもODBCでは失敗するコード例
 
@@ -392,3 +392,40 @@ INSERT
 INTO Table_1 (Field_2) 
 VALUES ('あいうえお'), ('かきくけこ'), ('さしすせそ');
 ```
+
+SQLおよびODBCの動作が確認できたので，いよいよPHPで4Dにアクセスします。
+
+PHPコードが記述されたファイルを作成します。
+
+```php
+<?php
+
+putenv("ODBCINSTINI=/Library/ODBC/odbcinst.ini");
+putenv("ODBCINI=/Library/ODBC/odbc.ini");
+
+$connect = odbc_connect("4D_v15_64", "Designer", "");
+
+$insert = "INSERT INTO Table_1 (Field_2) VALUES ('あいうえお'), ('かきくけこ'), ('さしすせそ')";
+$result = odbc_do($connect, $insert);
+
+$select = "SELECT Field_2 FROM Table_1";
+$result = odbc_do($connect, $select);
+while(odbc_fetch_row($result)){
+        for($i=1;$i<=odbc_num_fields($result);$i++){
+        echo odbc_result($result,$i)."\n";
+    }
+}
+
+odbc_close($connect);
+```
+
+PHPコマンドにファイルパスを指定してコードを実行します。
+
+```
+php -f /Users/miyako/Desktop/example.php 
+```
+
+PHPとODBCで4Dのアクセスすることができました。
+
+Windows
+---

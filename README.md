@@ -495,6 +495,25 @@ php -r phpinfo(); | more
 
 PHPにODBC拡張が含まれていることが確認できました。
 
+###ODBCドライバーのインストール
+
+Windows版の4D ODBC Driverは，2種類が提供されています。
+
+* Windows 32-bit
+* Windows 64-bit
+
+ODBCドライバーは，クライアント（たとえばPHPを実行するシステム）側のプラットフォームに合ったものをクライアント側にインストールします。今回は32ビット版のPHPをインストールしたので，32ビット版のODBCドライバーを使用することになります。
+
+ドライバーのインストーラーをダウンロードしてインストールします。
+
+http://www.4d.com/jp/downloads/products.html
+
+Windowsの場合，32ビット版のDSNは32ビット版の管理ツール，64ビット版のDSNは64ビット版の管理ツールで設定する必要があります。
+
+![admin-win-32](https://cloud.githubusercontent.com/assets/10509075/20780925/65a973fc-b7c2-11e6-8c85-8cd05683ac42.png)
+
+![admin-win-64](https://cloud.githubusercontent.com/assets/10509075/20780928/6af395a4-b7c2-11e6-9204-f5462a37d8b4.png)
+
 ###SQLサーバーの動作を確認する
 
 前述したMacと同じようにパススルー接続でSQLサーバーの動作を確認します。

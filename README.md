@@ -593,6 +593,13 @@ Begin SQL
  End SQL
 ```
 
+**注記**: DSNの設定は``odbc_connect``の引数で指定することもできます。
+
+```php
+$DSN = "DRIVER={4D v15 ODBC Driver 32-bit};Server=127.0.0.1;Port=19812;";
+$connect = odbc_connect($DSN, "Designer", "");
+```
+
 ODBC経由でもSQL命令が発行できることが確認できました。
 
 SQLおよびODBCの動作が確認できたので，いよいよPHPで4Dにアクセスします。

@@ -512,7 +512,7 @@ Windowsの場合，32ビット版のDSNは32ビット版の管理ツール，64�
 
 ![admin-win-32](https://cloud.githubusercontent.com/assets/10509075/20780925/65a973fc-b7c2-11e6-8c85-8cd05683ac42.png)
 
-![admin-win-64](https://cloud.githubusercontent.com/assets/10509075/20780928/6af395a4-b7c2-11e6-9204-f5462a37d8b4.png)
+![admin-win-64](https://cloud.githubusercontent.com/assets/10509075/20780946/894e7546-b7c2-11e6-9d12-a5d5b58abacd.png)
 
 ###SQLサーバーの動作を確認する
 

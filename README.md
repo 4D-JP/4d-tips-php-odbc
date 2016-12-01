@@ -663,7 +663,13 @@ chcp 65001
 
 すると，今度はPHPが渡されたファイルパスの日本語を解釈できずにエラーが返されます。
 
-**注記**: Windows版のPHPには，ロケールを``utf-8``に設定することができないようです。``ja_JP.UTF-8``を指定しても``Japanese_Japan.932``のままで変わりません。なお，ロケールは``Japanese_Japan.932``ですが，デフォルト文字セットは``utf-8``です。
+**注記**: Windows版のPHPは，デフォルト文字セットが``utf-8``に設定されていますが，ロケールを``utf-8``に設定することはできません。
+
+[言語識別文字列](https://msdn.microsoft.com/ja-jp/library/39cwe7zf.aspx)
+
+[ロケール名、言語、および国/地域識別文字列](https://msdn.microsoft.com/ja-jp/library/hzz3tw78.aspx)
+
+[setlocale、_wsetlocale](https://msdn.microsoft.com/ja-jp/library/x99tb11d(v=vs.140).aspx)
 
 ```php
 setlocale(LC_ALL, "ja_JP.UTF-8");
@@ -695,4 +701,5 @@ chcp 932
 
 ###判明した問題点
 
-PHPでODBCを使用する場合，ドライバーの文字コードは``system``に設定する必要があるようです。4Dから4DへのODBCであれば，``UTF-8``で通るので，ドライバーや4Dのバグというよりも，Windows版PHPのODBC拡張が``UTF-8``に対応していないように思えます。Windows版のPHPは，ロケールが``ja_JP.UTF-8``でないことも絡んでいるのかもしれません。
+PHPでODBCを使用する場合，ドライバーの文字コードは``system``に設定する必要があるようです。4Dから4DへのODBCであれば，``UTF-8``で通るので，ドライバーや4Dのバグというよりも，Windows版PHPのODBC拡張が``UTF-8``に対応していないように思えます。
+

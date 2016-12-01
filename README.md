@@ -241,7 +241,7 @@ iODBCのODBCアドミニストレーターは，32ビット版と64ビット版�
 
 接続テストのために簡単な4Dデータベースを作成します。
 
-まずエラースタックを記録するためのテーブルを作成します。
+まず一般エラースタックを記録するためのテーブルを作成します。
 
 ![generic-error-table](https://cloud.githubusercontent.com/assets/10509075/20777465/8269cdce-b7aa-11e6-9708-36a67eceafc1.png)
 
@@ -272,8 +272,22 @@ iODBCのODBCアドミニストレーターは，32ビット版と64ビット版�
 	</table>
 </base>
 ```
+一般エラー処理メソッドを作成します。
 
-``On SQL Authentication``データベースメソッドを作成します。
+```
+ARRAY LONGINT($codes;0)
+ARRAY TEXT($comps;0)
+ARRAY TEXT($texts;0)
+
+GET LAST ERROR STACK($codes;$comps;$texts)
+
+ARRAY TO SELECTION(\
+$codes;[GENERIC_ERROR]errCode;\
+$comps;[GENERIC_ERROR]errComp;\
+$texts;[GENERIC_ERROR]errText)
+```
+
+[On SQL Authenticationデータベースメソッド](http://doc.4d.com/4Dv15R5/4D/15-R5/On-SQL-Authentication-Database-Method.300-2936650.ja.html)を作成します。
 
 ```
 C_TEXT($1;$user)
@@ -281,14 +295,13 @@ C_TEXT($2;$password)
 C_TEXT($3;$address)
 C_BOOLEAN($0)
 
-  //TRACE
-
 $user:=$1
 $password:=$2
 $address:=$3
 
+ON ERR CALL("GENERIC_ERROR")
 CHANGE CURRENT USER($user;$password)
+ON ERR CALL("")
 
 $0:=(OK=1)
-
 ```

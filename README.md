@@ -305,3 +305,23 @@ ON ERR CALL("")
 
 $0:=(OK=1)
 ```
+
+パススルー（ODBCを介さない直接的なSQL接続）でSQLサーバーの動作を確認します。
+
+```
+START SQL SERVER
+
+ON ERR CALL("GENERIC_ERROR")
+SQL LOGIN("IP:127.0.0.1";"Designer";"")
+ON ERR CALL("")
+
+If (OK=1)
+	
+	ALERT("OK")
+	
+	SQL LOGOUT
+	
+End if 
+```
+
+**注記**: [SQL GET LAST ERROR](http://doc.4d.com/4Dv15R5/4D/15-R5/SQL-GET-LAST-ERROR.301-2936663.ja.html)はODBC/パススルー接続ともに何も情報を返さないようです。

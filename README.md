@@ -234,3 +234,61 @@ http://www.odbcmanager.net/faq.php
 iODBCのODBCアドミニストレーターは，32ビット版と64ビット版が用意されています。どちらのアドミニストレーターでも32ビット版と64ビット版のDSNを登録することができますが，接続テストは，それぞれのiODBC管理ツールで実行する必要があります。
 
 ![odbc-admin-mac](https://cloud.githubusercontent.com/assets/10509075/20777112/37c54e44-b7a8-11e6-9ac4-28b973ce8e95.png)
+
+**注記**: ODBC Managerのほうは接続テストができないようです。
+
+![odmc-manager-mac](https://cloud.githubusercontent.com/assets/10509075/20777173/980bfa14-b7a8-11e6-9beb-8f8418742ee2.png)
+
+接続テストのために簡単な4Dデータベースを作成します。
+
+まずエラースタックを記録するためのテーブルを作成します。
+
+![generic-error-table](https://cloud.githubusercontent.com/assets/10509075/20777465/8269cdce-b7aa-11e6-9708-36a67eceafc1.png)
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE base SYSTEM "http://www.4d.com/dtd/2007/base.dtd" >
+<base>
+	<table name="GENERIC_ERROR" uuid="9342ECC01D554F908DBD35D271A4A023" id="3">
+		<field name="ID" uuid="7D27F6C8EEFC4EBEA21981A36AA62379" type="4" unique="true" autosequence="true" not_null="true" id="1">
+			<field_extra/>
+		</field>
+		<field name="errCode" uuid="EBA4148C64D8475EA78A4CF9950F30A2" type="4" never_null="true" id="2">
+			<field_extra/>
+		</field>
+		<field name="errComp" uuid="BA1CCA1507764A22B60CF8500BBEC348" type="10" never_null="true" id="3">
+			<field_extra/>
+		</field>
+		<field name="errText" uuid="E6B4C1D0429C463BA30F0D513667E551" type="10" never_null="true" id="4">
+			<field_extra/>
+		</field>
+		<primary_key field_name="ID" field_uuid="7D27F6C8EEFC4EBEA21981A36AA62379"/>
+		<table_extra>
+			<editor_table_info displayable_fields_count="4">
+				<color red="207" green="209" blue="165" alpha="255"/>
+				<coordinates left="540.73828125" top="31.75" width="141" height="125.33203125"/>
+			</editor_table_info>
+		</table_extra>
+	</table>
+</base>
+```
+
+``On SQL Authentication``データベースメソッドを作成します。
+
+```
+C_TEXT($1;$user)
+C_TEXT($2;$password)
+C_TEXT($3;$address)
+C_BOOLEAN($0)
+
+  //TRACE
+
+$user:=$1
+$password:=$2
+$address:=$3
+
+CHANGE CURRENT USER($user;$password)
+
+$0:=(OK=1)
+
+```

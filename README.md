@@ -692,6 +692,8 @@ http://blog-tmtsts.rhcloud.com/1014
 
 ![system](https://cloud.githubusercontent.com/assets/10509075/20781330/5dc0e640-b7c5-11e6-802f-08fa90df4c8b.png)
 
+![bake-2](https://cloud.githubusercontent.com/assets/10509075/20784411/72610dc4-b7dd-11e6-97c5-baae2f449aa7.png)
+
 なぜか文字列の前半だけが化けます。末尾の``ds``も気になるのですが・・・
 
 原因は``CMD.EXE``ではなく，PHP側のようなので，``CMD.EXE``のコードページを``932``に戻します。

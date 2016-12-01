@@ -370,6 +370,7 @@ If (OK=1)
 		INSERT 
 		INTO Table_1 (Field_2) 
 		VALUES (:$values);
+		
 		SELECT Field_2 
 		FROM Table_1
 		INTO :$Field_2;
@@ -380,4 +381,14 @@ If (OK=1)
 Else 
 	ALERT("KO")
 End if  
+```
+
+**注記**: [SQL LOGIN](http://doc.4d.com/4Dv15R5/4D/15-R5/SQL-LOGIN.301-2936651.ja.html)で接続した外部データソースに対して``Begin SQL``~``End SQL``で命令を発行するためには，オプションの引数``*``を指定します。パススルーであれば，``Begin SQL``~``End SQL``ブロック内で文字列リテラルを指定することもできますが，ODBCドライバー経由では文字化けが発生するようです。
+
+* パススルーでは有効でもODBCでは失敗するコード例
+
+```sql
+INSERT 
+INTO Table_1 (Field_2) 
+VALUES ('あいうえお'), ('かきくけこ'), ('さしすせそ');
 ```

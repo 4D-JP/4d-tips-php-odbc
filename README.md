@@ -595,3 +595,55 @@ Begin SQL
 
 ODBC経由でもSQL命令が発行できることが確認できました。
 
+SQLおよびODBCの動作が確認できたので，いよいよPHPで4Dにアクセスします。
+
+PHPコードが記述されたファイルを作成します。（``INSERT``命令）
+
+```
+<?php
+
+$connect = odbc_connect("4D_v15_32", "Designer", "");
+
+$insert = "INSERT INTO Table_1 (Field_2) VALUES ('あいうえお'), ('かきくけこ'), ('さしすせそ')";
+$result = odbc_do($connect, $insert);
+
+odbc_close($connect);
+```
+
+PHPコマンドにファイルパスを指定してコードを実行します。
+
+```
+php -f /Users/miyako/Desktop/example.php 
+```
+
+``08004``というエラーが返されてしまいます。
+
+``VALUES``が日本語でなければ問題ないのですが・・・
+
+PHPコードが記述されたファイルを作成します。（``SELECT``命令）
+
+```
+<?php
+
+$connect = odbc_connect("4D_v15_32", "Designer", "");
+
+$select = "SELECT Field_2 FROM Table_1";
+$result = odbc_do($connect, $select);
+while(odbc_fetch_row($result)){
+        for($i=1;$i<=odbc_num_fields($result);$i++){
+        echo odbc_result($result,$i)."\n";
+    }
+}
+
+odbc_close($connect);
+```
+
+PHPコマンドにファイルパスを指定してコードを実行します。
+
+```
+php -f /Users/miyako/Desktop/example.php 
+```
+
+返された文字列が化けています。やはり，日本語でなければ問題ありません。明らかにUTF-8とコードページ932の混乱が生じているようです。
+
+![select-error](https://cloud.githubusercontent.com/assets/10509075/20781132/cd69e606-b7c3-11e6-890b-1b853534ab2e.png)

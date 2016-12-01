@@ -239,6 +239,8 @@ iODBCのODBCアドミニストレーターは，32ビット版と64ビット版�
 
 ![odmc-manager-mac](https://cloud.githubusercontent.com/assets/10509075/20777173/980bfa14-b7a8-11e6-9beb-8f8418742ee2.png)
 
+###SQLサーバーの動作を確認する
+
 接続テストのために簡単な4Dデータベースを作成します。
 
 まず一般エラースタックを記録するためのテーブルを作成します。
@@ -306,7 +308,7 @@ ON ERR CALL("")
 $0:=(OK=1)
 ```
 
-パススルー（ODBCを介さない直接的なSQL接続）でSQLサーバーの動作を確認します。
+パススルー（ODBCを介さない直接的なSQL接続）でSQLサーバーの動作（接続および認証）を確認します。
 
 ```
 START SQL SERVER
@@ -316,27 +318,66 @@ SQL LOGIN("IP:127.0.0.1";"Designer";"")
 ON ERR CALL("")
 
 If (OK=1)
-	
 	ALERT("OK")
 	
 	SQL LOGOUT
-	
+Else 
+	ALERT("KO")
 End if 
 ```
 
-**注記**: [SQL GET LAST ERROR](http://doc.4d.com/4Dv15R5/4D/15-R5/SQL-GET-LAST-ERROR.301-2936663.ja.html)はODBC/パススルー接続ともに何も情報を返さないようです。
+**注記**: ここでは，サーバー側・クライアント側ともに共通の汎用エラー処理メソッドとエラースタックコマンドを使用しています。クライアント側のODBC/SQLエラー情報コマンド[SQL GET LAST ERROR](http://doc.4d.com/4Dv15R5/4D/15-R5/SQL-GET-LAST-ERROR.301-2936663.ja.html)はODBC/パススルー接続ともに何も値を返さないようです。
 
-4Dをもうひとつ起動し，今度はODBC接続のテストを実行します。ここではv15の32ビット版データソース名を指定しています。
+接続に成功したら，今度は不正なパスワードを使用した場合に接続が拒否されることを確認します。
+
+SQLサーバーの動作と認証をチェックすることができました。
+
+###ODBCドライバーの動作を確認する
+
+4Dをもうひとつ起動し，今度はODBC接続のテストを実行します。
+
+ここではv15の32ビット版データソース名を指定しています。
 ```
 SQL LOGIN("ODBC:4D_V15_32";"Designer";"")
 
 If (OK=1)
-
-ALERT("OK")
-
-SQL LOGOUT
-
-End if 
+	ALERT("OK")
+	
+	SQL LOGOUT
+Else 
+	ALERT("KO")
+End if  
 ```
 
 **注記**: パススルーとは違い，ODBCの自己接続はできないようです。アプリケーションがフリーズします。
+
+接続に成功したら，今度はSQL命令のテストを実行します。
+
+```
+SQL LOGIN("ODBC:4D_V15_32";"Designer";"";*) //*: apply to BeginSQL~End SQL
+
+If (OK=1)
+
+	ARRAY TEXT($Field_2;0)
+	ARRAY TEXT($values;3)
+	
+	$values{1}:="あいうえお"  //string literal gets corrupted in ODBC
+	$values{2}:="かきくけこ"
+	$values{3}:="さしすせそ"
+	
+	Begin SQL
+		
+		INSERT 
+		INTO Table_1 (Field_2) 
+		VALUES (:$values);
+		SELECT Field_2 
+		FROM Table_1
+		INTO :$Field_2;
+		
+	End SQL
+	
+	SQL LOGOUT
+Else 
+	ALERT("KO")
+End if  
+```

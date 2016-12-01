@@ -326,8 +326,7 @@ End if
 
 **注記**: [SQL GET LAST ERROR](http://doc.4d.com/4Dv15R5/4D/15-R5/SQL-GET-LAST-ERROR.301-2936663.ja.html)はODBC/パススルー接続ともに何も情報を返さないようです。
 
-4Dをもうひとつ起動し，今度はODBC接続のテストを実行します。
-
+4Dをもうひとつ起動し，今度はODBC接続のテストを実行します。ここではv15の32ビット版データソース名を指定しています。
 ```
 SQL LOGIN("ODBC:4D_V15_32";"Designer";"")
 

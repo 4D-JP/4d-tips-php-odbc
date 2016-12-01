@@ -686,3 +686,6 @@ chcp 932
 
 ![good-but](https://cloud.githubusercontent.com/assets/10509075/20781354/846ea62e-b7c5-11e6-8db9-ce5847cd0ffe.png)
 
+###判明した問題点
+
+PHPでODBCを使用する場合，ドライバーの文字コードは``system``に設定する必要があるようです。4Dから4DへのODBCであれば，``UTF-8``で通るので，ドライバーや4Dのバグというよりも，WIndows版PHPのODBC拡張が``UTF-8``に対応していないように思えます。Windows版のPHPは，ロケールが``ja_JP.UTF-8``でないことも絡んでいるのかもしれません。

@@ -445,6 +445,12 @@ while(odbc_fetch_row($result)){
 odbc_close($connect);
 ```
 
+**注記**: DSNには，接続文字列を指定することもできます。
+
+```php
+$connect = odbc_connect("Driver={4D v15 ODBC Driver 64-bit};Server=127.0.0.1;Port=19812;", "Designer", "");
+```
+
 PHPコマンドにファイルパスを指定してコードを実行します。
 
 ```
@@ -593,13 +599,6 @@ Begin SQL
  End SQL
 ```
 
-**注記**: DSNの設定は``odbc_connect``の引数で指定することもできます。
-
-```php
-$DSN = "DRIVER={4D v15 ODBC Driver 32-bit};Server=127.0.0.1;Port=19812;";
-$connect = odbc_connect($DSN, "Designer", "");
-```
-
 ODBC経由でもSQL命令が発行できることが確認できました。
 
 SQLおよびODBCの動作が確認できたので，いよいよPHPで4Dにアクセスします。
@@ -615,6 +614,13 @@ $insert = "INSERT INTO Table_1 (Field_2) VALUES ('あいうえお'), ('かきく
 $result = odbc_do($connect, $insert);
 
 odbc_close($connect);
+```
+
+**注記**: DSNには，接続文字列を指定することもできます。
+
+```php
+$DSN = "DRIVER={4D v15 ODBC Driver 32-bit};Server=127.0.0.1;Port=19812;";
+$connect = odbc_connect($DSN, "Designer", "");
 ```
 
 PHPコマンドにファイルパスを指定してコードを実行します。
